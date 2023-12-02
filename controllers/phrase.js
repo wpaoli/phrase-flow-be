@@ -14,6 +14,7 @@ module.exports = {
         
            return res.status(201).json({
                "message": "Phrase created successfully",
+               user_id,
                 phrase
            })
        }).catch(error => {
