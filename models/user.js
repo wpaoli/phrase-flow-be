@@ -9,8 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // A user can have multiple phrases
+      this.hasMany(models.Phrase, {
+        foreignKey: 'userId',
+        as: 'phrases' // alias for this relationship
+      });
     }
+    
   }
   User.init({
     firstName: DataTypes.STRING,

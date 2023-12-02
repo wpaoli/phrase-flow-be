@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 // router import
 const user = require('./routes/user')
+const phrase = require('./routes/phrase')
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routing
 app.use('/api', user)
+app.use('/api', phrase)
 
 
 // simple route

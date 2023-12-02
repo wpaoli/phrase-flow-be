@@ -9,7 +9,7 @@ module.exports = {
     // create account
     signUp: (req, res) => {
        let { firstName, lastName, email} = req.body
-       console.log(req.body)
+       
        User.create({
            firstName,
            lastName,
