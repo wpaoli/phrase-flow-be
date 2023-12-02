@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Phrase.init({
-    phrase: DataTypes.STRING,
+    phrase: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     userId: {
       type: DataTypes.INTEGER,
       references: {
