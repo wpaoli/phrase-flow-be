@@ -5,16 +5,15 @@ module.exports = {
 
     // add phrase
     addPhrase: (req, res) => {
-       let { phrase, user_id } = req.body
+       let { phrase, userId } = req.body
        console.log(req.body);
        Phrase.create({
-            user_id,
+        userId,
            phrase
        }).then((phrase) => {
         
            return res.status(201).json({
-               "message": "Phrase created successfully",
-               user_id,
+               "message": "Phrase created successfully",                   
                 phrase
            })
        }).catch(error => {
