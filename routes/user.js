@@ -1,41 +1,27 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 const {
-     signUp,
-     updateSignUp ,
-     getAllUsers,
-     getSingleUser,
-     deleteSingleUser,
-     deleteAllUsers,
+  registerUser,
+  updateSignUp,
+  getAllUsers,
+  getSingleUser,
+  deleteSingleUser,
+  deleteAllUsers,
+} = require("../controllers/user");
 
-    } = require('../controllers/user')
+//Routes
+//All of these are prefaced with /api/ (see app.js)
+router.post("/users", registerUser);
 
-// -------------------------CUSTOM ROUTE-------------------------
-router.post('/sign-up',
-    signUp
-)
+// router.put("/sign-up/:id", updateSignUp);
 
-router.put('/sign-up/:id',
-    updateSignUp
-)
+// router.get("/sign-up/", getAllUsers);
 
-router.get('/sign-up/',
-    getAllUsers
-)
+// router.get("/sign-up/:id", getSingleUser);
 
-router.get('/sign-up/:id',
-getSingleUser
-)
+// router.delete("/sign-up/:id", deleteSingleUser);
 
-router.delete('/sign-up/:id',
-deleteSingleUser
-)
-
-router.delete('/sign-up/',
-deleteAllUsers
-)
-
-
+// router.delete("/sign-up/", deleteAllUsers);
 
 // -------------------------EXPORT ROUTER-------------------------
-module.exports = router
+module.exports = router;
