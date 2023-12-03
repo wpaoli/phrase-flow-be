@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models").User;
 
-const registerUser = asyncHandler(async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -33,14 +33,36 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       //not sure why this has a underscore
-      _id: user.id,
+      id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      token: generateToken(user.id),
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
+  }
+});
+
+const login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  //check for user email in the DB
+  const user = await User.findOne({ where: { email: email } });
+  const test = await User.findOne({ where: { id: 32 } });
+
+  console.log("test RAAGGGhhh", test);
+  // Check to see if their password matches whats in the db
+  if (user && (await bcrypt.compare(password, user.password))) {
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user.id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid Creds");
   }
 });
 
@@ -56,5 +78,6 @@ const generateToken = (id) => {
 };
 
 module.exports = {
-  registerUser,
+  register,
+  login,
 };

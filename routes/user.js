@@ -1,17 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerUser,
+  register,
+  login,
   updateSignUp,
   getAllUsers,
   getSingleUser,
   deleteSingleUser,
   deleteAllUsers,
 } = require("../controllers/user");
+const { checkToken } = require("../controllers/checkToken");
 
 //Routes
 //All of these are prefaced with /api/ (see app.js)
-router.post("/users", registerUser);
+router.post("/register", register);
+
+router.post("/login", checkToken, login);
 
 // router.put("/sign-up/:id", updateSignUp);
 
