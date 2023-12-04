@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPhrase } = require("../controllers/phrase");
+const { addPhrase } = require("../controllers/phraseController");
 const { checkToken } = require("../controllers/checkToken");
 
 // -------------------------CUSTOM ROUTE-------------------------

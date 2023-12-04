@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
 
 // router import
-const user = require("./routes/user");
-const phrase = require("./routes/phrase");
+const user = require("./routes/userRoute");
+const phrase = require("./routes/phraseRoute");
 
 const app = express();
 
@@ -20,7 +20,10 @@ app.use("/api", phrase);
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the application." });
+  res.json({
+    message:
+      "Welcome to the application. Create a user at /api/register with email: and password:",
+  });
 });
 
 // set port, listen for requests

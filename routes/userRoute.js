@@ -9,7 +9,7 @@ const {
   getSingleUser,
   deleteSingleUser,
   deleteAllUsers,
-} = require("../controllers/user");
+} = require("../controllers/userController");
 const { checkToken } = require("../controllers/checkToken");
 
 //Routes
