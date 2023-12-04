@@ -16,9 +16,8 @@ const checkToken = asyncHandler(async (req, res, next) => {
 
       //verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded.id);
-      // //Get user from the token
 
+      // //Get user from the token
       req.user = await User.findOne({
         where: { id: decoded.id },
         attributes: { exclude: ["password"] },

@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       definition: {
         type: DataTypes.STRING,
-        //This might be its own table, but honestly why?
       },
       userId: {
         type: DataTypes.INTEGER,

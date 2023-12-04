@@ -52,12 +52,13 @@ const login = asyncHandler(async (req, res) => {
 
   // Check to see if their password matches whats in the db
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
+    res.status(200).json({
       id: user.id,
       name: user.name,
       email: user.email,
       token: generateToken(user.id),
     });
+    console.log("Welcome ", user.name);
   } else {
     res.status(400);
     throw new Error("Invalid Creds");
