@@ -10,7 +10,8 @@ const {
   deleteSingleUser,
   deleteAllUsers,
 } = require("../controllers/userController");
-const { checkToken } = require("../controllers/checkToken");
+// const { checkToken } = require("../controllers/checkToken");
+// const { checkSession } = require("../controllers/checkSession");
 
 //Routes
 //All of these are prefaced with /api/ (see app.js)
@@ -20,7 +21,7 @@ router.post("/register", register);
 //Removing the token from the client seems decent enough for me, for now.
 //https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens
 
-router.post("/login", checkToken, login);
+router.post("/login", login);
 
 // router.put("/sign-up/:id", updateSignUp);
 

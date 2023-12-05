@@ -2,12 +2,24 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
+const session = require("express-session");
+// const { checkSession } = require("./controllers/checkSession");
+
+const app = express();
+
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// app.use(checkSession);
 
 // router import
 const user = require("./routes/userRoute");
 const phrase = require("./routes/phraseRoute");
-
-const app = express();
 
 app.use(express.json());
 app.use(morgan("tiny"));

@@ -36,7 +36,6 @@ const register = asyncHandler(async (req, res) => {
       id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user.id),
     });
   } else {
     res.status(400);
@@ -47,16 +46,19 @@ const register = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  //check for user email in the DB
+  // Check for user email in the DB
   const user = await User.findOne({ where: { email: email } });
 
-  // Check to see if their password matches whats in the db
+  // Check to see if their password matches what's in the db
   if (user && (await bcrypt.compare(password, user.password))) {
+    // Store user ID in the session
+    req.session.user = { id: user.id };
+    console.log(req.session);
+
     res.status(200).json({
       id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user.id),
     });
     console.log("Welcome ", user.name);
   } else {

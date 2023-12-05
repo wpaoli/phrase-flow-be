@@ -7,10 +7,12 @@ const {
 } = require("../controllers/phraseController");
 const { checkToken } = require("../controllers/checkToken");
 
-//TODO: Document the request expected
-router.post("/phrase", checkToken, addPhrase);
-router.put("/phrase/:id", checkToken, updatePhrase);
+const { checkSession } = require("../controllers/checkSession");
 
-router.get("/phrases", checkToken, getPhrases);
+//TODO: Document the request expected
+router.post("/phrase", checkSession, addPhrase);
+router.put("/phrase/:id", checkSession, updatePhrase);
+
+router.get("/phrases", checkSession, getPhrases);
 
 module.exports = router;

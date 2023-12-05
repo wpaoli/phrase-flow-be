@@ -1,6 +1,14 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const { User } = require("../models");
+// Probably need to find a better way of doing authenitcation
+//https://blog.logrocket.com/jwt-authentication-best-practices/
+//BUT glad i learned about jwt and this works for now.
+
+// More like this:
+// https://www.workfall.com/learning/blog/how-to-perform-a-session-based-user-authentication-in-express-js/
+
+//https://blogs.halodoc.io/user-authentication-jwt-vs-session/
 
 const checkToken = asyncHandler(async (req, res, next) => {
   console.log("checkToken happening");
