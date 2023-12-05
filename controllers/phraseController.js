@@ -3,28 +3,44 @@ const asyncHandler = require("express-async-handler");
 
 const addPhrase = asyncHandler(async (req, res) => {
   const { phrase, definition } = req.body;
-  // I think I need to look up the logged in user here
-  //ANSWER: It comes form the middleware, check token.
-  const userId = req.user.id; // assuming req.user is the logged in user
+  const userId = req.user.id;
 
-  console.log(req.body);
-
-  //   console.log(req.body);
-  Phrase.create({
-    userId,
-    phrase,
-    definition,
-  })
-    .then((phrase) => {
-      return res.status(201).json({
-        message: "Phrase created successfully",
-        phrase,
-        definition,
-      });
-    })
-    .catch((error) => {
-      return res.status(400).json({ error });
+  try {
+    const newPhrase = await Phrase.create({
+      userId,
+      phrase,
+      definition,
     });
+
+    return res.status(201).json({
+      message: "Phrase created successfully",
+      phrase: newPhrase,
+    });
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
+const updatePhrase = asyncHandler(async (req, res) => {
+  const { phrase, definition } = req.body;
+  const id = req.params.id;
+
+  try {
+    const foundPhrase = await Phrase.findOne({ where: { id: id } });
+
+    if (!foundPhrase) {
+      return res.status(206).json({ message: "Phrase not found" });
+    }
+
+    const updatedPhrase = await foundPhrase.update({ phrase, definition });
+
+    return res.status(202).json({
+      message: "Phrase updated successfully",
+      updatedPhrase,
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error });
+  }
 });
 
 const getPhrases = asyncHandler(async (req, res) => {
@@ -39,4 +55,5 @@ const getPhrases = asyncHandler(async (req, res) => {
 module.exports = {
   addPhrase,
   getPhrases,
+  updatePhrase,
 };
