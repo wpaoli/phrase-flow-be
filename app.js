@@ -7,15 +7,16 @@ const session = require("express-session");
 
 const app = express();
 
+//You can also use sqlize to store the session data using this package:
+// connect-session-sequelize, no need right now.
+
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   })
 );
-
-// app.use(checkSession);
 
 // router import
 const user = require("./routes/userRoute");

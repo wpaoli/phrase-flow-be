@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       definition: {
         type: DataTypes.STRING,
       },
+      frequency: {
+        type: DataTypes.INTEGER,
+      },
       userId: {
         type: DataTypes.INTEGER,
         references: {

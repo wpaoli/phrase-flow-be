@@ -2,7 +2,7 @@ const Phrase = require("../models").Phrase;
 const asyncHandler = require("express-async-handler");
 
 const addPhrase = asyncHandler(async (req, res) => {
-  const { phrase, definition } = req.body;
+  const { phrase, definition, frequency } = req.body;
   const userId = req.user.id;
 
   try {
@@ -10,6 +10,7 @@ const addPhrase = asyncHandler(async (req, res) => {
       userId,
       phrase,
       definition,
+      frequency,
     });
 
     return res.status(201).json({
@@ -22,7 +23,7 @@ const addPhrase = asyncHandler(async (req, res) => {
 });
 
 const updatePhrase = asyncHandler(async (req, res) => {
-  const { phrase, definition } = req.body;
+  const { phrase, definition, frequency } = req.body;
   const id = req.params.id;
 
   try {
@@ -32,7 +33,11 @@ const updatePhrase = asyncHandler(async (req, res) => {
       return res.status(206).json({ message: "Phrase not found" });
     }
 
-    const updatedPhrase = await foundPhrase.update({ phrase, definition });
+    const updatedPhrase = await foundPhrase.update({
+      phrase,
+      definition,
+      frequency,
+    });
 
     return res.status(202).json({
       message: "Phrase updated successfully",

@@ -25,16 +25,6 @@ router.post("/register", register);
 
 router.post("/login", login);
 router.post("/logout", checkSession, logout);
+//If you forget yer password, yer screwed right now lol
 
-// router.put("/sign-up/:id", updateSignUp);
-
-// router.get("/sign-up/", getAllUsers);
-
-// router.get("/sign-up/:id", getSingleUser);
-
-// router.delete("/sign-up/:id", deleteSingleUser);
-
-// router.delete("/sign-up/", deleteAllUsers);
-
-// -------------------------EXPORT ROUTER-------------------------
 module.exports = router;
