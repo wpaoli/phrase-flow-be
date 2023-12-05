@@ -28,6 +28,12 @@ const addPhrase = asyncHandler(async (req, res) => {
     });
 });
 
+const getPhrases = asyncHandler(async (req, res) => {
+  const phrases = await Phrase.findAll({ user: req.user.id });
+  res.status(200).json(phrases);
+});
+
 module.exports = {
   addPhrase,
+  getPhrases,
 };
