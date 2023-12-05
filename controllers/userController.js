@@ -67,6 +67,17 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
+const logout = asyncHandler(async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Could not log out");
+    } else {
+      return res.send("Logout successful");
+    }
+  });
+});
+
+//THIS CAN BE REMOVED FROM THIS BRANCH
 //Generate JWT
 //OK this is working but I dont get exactly how this works.
 //It generates the token and sends it to the user.
@@ -81,4 +92,5 @@ const generateToken = (id) => {
 module.exports = {
   register,
   login,
+  logout,
 };
