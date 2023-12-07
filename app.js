@@ -15,7 +15,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    // cookie: { secure: true },
+    // cookie: { secure: true }, //requires https
     name: "phrase-app-session",
   })
 );
@@ -23,6 +23,7 @@ app.use(
 // router import
 const user = require("./routes/userRoute");
 const phrase = require("./routes/phraseRoute");
+const tag = require("./routes/tagRoute");
 
 app.use(express.json());
 app.use(morgan("tiny"));
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routing
 app.use("/api", user);
 app.use("/api", phrase);
+app.use("/api", tag);
 
 // simple route
 app.get("/", (req, res) => {
