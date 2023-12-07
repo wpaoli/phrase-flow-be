@@ -5,7 +5,10 @@ const asyncHandler = require("express-async-handler");
 const addPhrase = asyncHandler(async (req, res) => {
   const { phrase, definition, frequency } = req.body;
   const userId = req.user.id;
-
+  if (!phrase) {
+    res.status(400);
+    throw new Error("Phrase cannot be blank");
+  }
   try {
     const newPhrase = await Phrase.create({
       userId,
