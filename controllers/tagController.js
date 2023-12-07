@@ -4,6 +4,14 @@ const asyncHandler = require("express-async-handler");
 const addTag = asyncHandler(async (req, res) => {
   const { tag_name } = req.body;
 
+  //Check if exists
+  const tagExists = await Tag.findOne({ where: { tag_name: tag_name } });
+
+  if (tagExists) {
+    res.status(400);
+    throw new Error("Tag already exists");
+  }
+
   try {
     const newTag = await Tag.create({
       tag_name,
