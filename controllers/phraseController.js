@@ -4,11 +4,21 @@ const asyncHandler = require("express-async-handler");
 
 const addPhrase = asyncHandler(async (req, res) => {
   const { phrase, definition, frequency } = req.body;
+
   const userId = req.user.id;
+  const phraseExists = await Phrase.findOne({ where: { phrase: phrase } });
+
   if (!phrase) {
     res.status(400);
     throw new Error("Phrase cannot be blank");
   }
+
+  if (phraseExists) {
+    res.status(400);
+    throw new Error("Phrase already exists");
+    //might be cool to have this return the id of the one that exists
+  }
+
   try {
     const newPhrase = await Phrase.create({
       userId,
@@ -53,10 +63,12 @@ const updatePhrase = asyncHandler(async (req, res) => {
 });
 
 const getPhrases = asyncHandler(async (req, res) => {
+  //example of why sequelize is great, this would be very long SQL
   const phrases = await Phrase.findAll({
     where: {
       userId: req.user.id,
     },
+    include: [{ model: Tag }],
   });
   res.status(200).json(phrases);
 });
