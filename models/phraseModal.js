@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   Phrase.associate = function (models) {
     // Your associations go here
     Phrase.belongsToMany(models.Tag, { through: "PhraseTags" });
+    Phrase.belongsTo(models.User, { foreignKey: "userId" });
   };
 
   return Phrase;
