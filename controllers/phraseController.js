@@ -97,9 +97,32 @@ const addTagToPhrase = asyncHandler(async (req, res) => {
   }
 });
 
+const getPhrasesByTag = asyncHandler(async (req, res) => {
+  const { tagId } = req.params;
+
+  try {
+    const tag = await Tag.findByPk(tagId, {
+      include: [
+        {
+          model: Phrase, // Make sure Phrase is imported and associated
+        },
+      ],
+    });
+
+    if (!tag) {
+      return res.status(404).json({ message: "Tag not found" });
+    }
+
+    return res.status(200).json(tag.Phrases); // Send the phrases associated with the tag
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = {
   addPhrase,
   getPhrases,
+  getPhrasesByTag,
   updatePhrase,
   addTagToPhrase,
 };
