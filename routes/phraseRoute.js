@@ -6,6 +6,7 @@ const {
   getPhrasesByTag,
   updatePhrase,
   addTagToPhrase,
+  detachTagFromPhrase,
 } = require("../controllers/phraseController");
 const { checkToken } = require("../controllers/checkToken");
 
@@ -20,5 +21,12 @@ router.get("/phrases/tag/:tagId", checkSession, getPhrasesByTag);
 
 //add tag to phrase
 router.post("/phrase/:phraseId/tag/:tagId", checkSession, addTagToPhrase);
+
+//remove tag from a phrase
+router.post(
+  "/phrase/:phraseId/detatch-tag/:tagId",
+  checkSession,
+  detachTagFromPhrase
+);
 
 module.exports = router;

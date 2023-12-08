@@ -97,6 +97,29 @@ const addTagToPhrase = asyncHandler(async (req, res) => {
   }
 });
 
+const detachTagFromPhrase = asyncHandler(async (req, res) => {
+  const { phraseId, tagId } = req.params; // Retrieving from route parameters
+  try {
+    const phrase = await Phrase.findByPk(phraseId);
+    if (!phrase) {
+      return res.status(404).json({ message: "Phrase not found" });
+    }
+
+    const tag = await Tag.findByPk(tagId);
+    if (!tag) {
+      return res.status(404).json({ message: "Tag not found" });
+    }
+
+    await phrase.removeTag(tag);
+
+    return res
+      .status(200)
+      .json({ message: "Tag added to phrase successfully" });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
+
 const getPhrasesByTag = asyncHandler(async (req, res) => {
   const { tagId } = req.params;
 
@@ -125,4 +148,5 @@ module.exports = {
   getPhrasesByTag,
   updatePhrase,
   addTagToPhrase,
+  detachTagFromPhrase,
 };

@@ -4,12 +4,16 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
 const session = require("express-session");
 // const { checkSession } = require("./controllers/checkSession");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("swagger.yaml");
 
 const app = express();
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 //You can also use sqlize to store the session data using this package:
 // connect-session-sequelize, no need right now.
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
