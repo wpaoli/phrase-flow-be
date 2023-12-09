@@ -12,7 +12,12 @@ const addTag = asyncHandler(async (req, res) => {
     throw new Error("Tag field is blank");
   }
   //Check if exists
-  const tagExists = await Tag.findOne({ where: { tag_name: tag_name } });
+  const tagExists = await Tag.findOne({
+    where: {
+      tag_name: tag_name,
+      userId: userId, // Assuming userId is the ID of the user
+    },
+  });
 
   if (tagExists) {
     res.status(400);
